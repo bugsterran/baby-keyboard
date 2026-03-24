@@ -54,7 +54,15 @@ export function renderPlay(app, theme, onExit) {
   function triggerEffect(x, y, key) {
     // Drum mode
     if (theme.isDrum) {
-      const drum = getDrumType(key) || ['kick', 'snare', 'hihat', 'tom'][Math.floor(Math.random() * 4)];
+      // Touch/click or Enter/Space = crash (big effect)
+      if (!key || key === 'Enter' || key === ' ') {
+        spawnTextPop(effectsContainer, '💥 쾅!', x, y);
+        engine.spawn(x, y, { ...particleConfig, count: 60, speed: 12 });
+        playKick();
+        playSnare();
+        return;
+      }
+      const drum = getDrumType(key);
       spawnTextPop(effectsContainer, drumLabels[drum], x, y);
       engine.spawn(x, y, { ...particleConfig, colors: [drumColors[drum], '#FFFFFF'], count: 30, speed: 10 });
       if (drum === 'kick') playKick();
