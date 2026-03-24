@@ -148,6 +148,32 @@ body.playing {
   color: #bbb;
 }
 
+.ad-banner a {
+  display: block;
+  max-width: 728px;
+  width: 100%;
+}
+
+.ad-banner img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.ad-disclaimer {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+.ad-banner-top {
+  margin-bottom: 4px;
+}
+
+.ad-banner-bottom {
+  margin-top: 12px;
+}
+
 .ad-banner-top {
   margin-bottom: 4px;
 }
