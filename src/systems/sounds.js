@@ -226,6 +226,40 @@ function sportsWhistle(pitch) {
   osc.stop(ctx.currentTime + 0.2);
 }
 
+// Number counting beep
+function numberBeep(pitch) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  const freq = 300 + pitch * 50;
+  osc.frequency.setValueAtTime(freq, ctx.currentTime);
+  osc.frequency.setValueAtTime(freq * 1.2, ctx.currentTime + 0.08);
+  gain.gain.setValueAtTime(0.12, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.2);
+}
+
+// Robot bleep
+function robotBleep(pitch) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(200 + pitch * 60, ctx.currentTime);
+  osc.frequency.setValueAtTime(400 + pitch * 80, ctx.currentTime + 0.05);
+  osc.frequency.setValueAtTime(150 + pitch * 40, ctx.currentTime + 0.1);
+  gain.gain.setValueAtTime(0.06, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.18);
+}
+
 // Theme ID → sound function mapping
 const soundMap = {
   zoo: animalChirp,
@@ -240,6 +274,8 @@ const soundMap = {
   insects: bugBuzz,
   weather: windWhoosh,
   sports: sportsWhistle,
+  numbers: numberBeep,
+  robot: robotBleep,
 };
 
 // Play theme-specific sound
