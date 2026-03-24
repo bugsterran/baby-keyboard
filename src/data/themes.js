@@ -323,4 +323,30 @@ export const themes = [
     particleColors: ['#CE93D8', '#BA68C8', '#FFD54F', '#4FC3F7', '#FF8A65', '#AED581'],
     particleShapes: ['circle', 'star'],
   },
+  {
+    id: 'drum',
+    name: '드럼',
+    icon: '🥁',
+    description: '쿵짝쿵짝 드럼!',
+    background: 'linear-gradient(180deg, #212121 0%, #424242 40%, #616161 100%)',
+    isDrum: true,
+    letters: [
+      '🥁 쿵!', '🥁 딱!', '🥁 탁!', '🥁 쿵!', '🥁 딱!',
+      '🥁 탁!', '🥁 쿵!', '🥁 딱!', '🥁 탁!', '🥁 쿵!',
+      '🥁 딱!', '🥁 탁!', '🥁 쿵!', '🥁 딱!', '🥁 탁!',
+      '🥁 쿵!', '🥁 딱!', '🥁 탁!', '🥁 쿵!', '🥁 딱!',
+      '🥁 탁!', '🥁 쿵!', '🥁 딱!', '🥁 탁!', '🥁 쿵!',
+      '🥁 딱!',
+    ],
+    digits: ['💥 쾅!', '💥 펑!', '💥 빵!', '💥 탕!', '💥 쾅!', '💥 펑!', '💥 빵!', '💥 탕!', '💥 쾅!', '💥 펑!'],
+    // Drum type mapped by key position: row 1 (QWERTY) = hi-hat, row 2 (ASDF) = snare, row 3 (ZXCV) = kick
+    drumMap: {
+      kick: 'zxcvbnm',
+      snare: 'asdfghjkl',
+      hihat: 'qwertyuiop',
+      tom: '1234567890',
+    },
+    particleColors: ['#FF5722', '#FF9800', '#FFC107', '#FFEB3B', '#FFFFFF'],
+    particleShapes: ['circle', 'star'],
+  },
 ];

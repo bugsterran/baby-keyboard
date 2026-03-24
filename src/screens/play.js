@@ -2,7 +2,7 @@ import { initKeyCapture, destroyKeyCapture } from '../systems/keys.js';
 import { ParticleEngine } from '../systems/particles.js';
 import { spawnTextPop, spawnEmojiBurst, flashScreen } from '../systems/effects.js';
 import { enterFullscreen, exitFullscreen } from '../systems/fullscreen.js';
-import { resumeAudio, playThemeSound, playFirework, playSwoosh } from '../systems/sounds.js';
+import { resumeAudio, playThemeSound, playFirework, playSwoosh, playKick, playSnare, playHihat, playTom } from '../systems/sounds.js';
 
 let engine = null;
 
@@ -38,7 +38,32 @@ export function renderPlay(app, theme, onExit) {
     shapes: theme.particleShapes,
   };
 
+  function getDrumType(key) {
+    if (!key || !theme.isDrum) return null;
+    const k = key.toLowerCase();
+    if (theme.drumMap.kick.includes(k)) return 'kick';
+    if (theme.drumMap.snare.includes(k)) return 'snare';
+    if (theme.drumMap.hihat.includes(k)) return 'hihat';
+    if (theme.drumMap.tom.includes(k)) return 'tom';
+    return 'kick';
+  }
+
+  const drumLabels = { kick: '🥁 쿵!', snare: '🥁 딱!', hihat: '🥁 칙!', tom: '🥁 둥!' };
+  const drumColors = { kick: '#FF5722', snare: '#FFC107', hihat: '#4FC3F7', tom: '#FF9800' };
+
   function triggerEffect(x, y, key) {
+    // Drum mode
+    if (theme.isDrum) {
+      const drum = getDrumType(key) || ['kick', 'snare', 'hihat', 'tom'][Math.floor(Math.random() * 4)];
+      spawnTextPop(effectsContainer, drumLabels[drum], x, y);
+      engine.spawn(x, y, { ...particleConfig, colors: [drumColors[drum], '#FFFFFF'], count: 30, speed: 10 });
+      if (drum === 'kick') playKick();
+      else if (drum === 'snare') playSnare();
+      else if (drum === 'hihat') playHihat();
+      else playTom(key ? key.charCodeAt(0) % 5 : 3);
+      return;
+    }
+
     if (key && /^[a-zA-Z]$/.test(key)) {
       const index = key.toUpperCase().charCodeAt(0) - 65;
       const entry = theme.letters[index % theme.letters.length];

@@ -260,6 +260,92 @@ function robotBleep(pitch) {
   osc.stop(ctx.currentTime + 0.18);
 }
 
+// === Drum sounds ===
+export function playKick() {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.15);
+  gain.gain.setValueAtTime(0.8, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.3);
+}
+
+export function playSnare() {
+  const ctx = getCtx();
+  // Tone
+  const osc = ctx.createOscillator();
+  const oscGain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.value = 200;
+  oscGain.gain.setValueAtTime(0.3, ctx.currentTime);
+  oscGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+  osc.connect(oscGain);
+  oscGain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.1);
+  // Noise
+  const bufferSize = ctx.sampleRate * 0.15;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource();
+  const noiseGain = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+  noise.buffer = buffer;
+  filter.type = 'highpass';
+  filter.frequency.value = 1000;
+  noiseGain.gain.setValueAtTime(0.5, ctx.currentTime);
+  noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+  noise.connect(filter);
+  filter.connect(noiseGain);
+  noiseGain.connect(ctx.destination);
+  noise.start();
+  noise.stop(ctx.currentTime + 0.15);
+}
+
+export function playHihat() {
+  const ctx = getCtx();
+  const bufferSize = ctx.sampleRate * 0.08;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource();
+  const gain = ctx.createGain();
+  const filter = ctx.createBiquadFilter();
+  noise.buffer = buffer;
+  filter.type = 'highpass';
+  filter.frequency.value = 5000;
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+  noise.connect(filter);
+  filter.connect(gain);
+  gain.connect(ctx.destination);
+  noise.start();
+  noise.stop(ctx.currentTime + 0.08);
+}
+
+export function playTom(pitch = 1) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  const freq = 100 + pitch * 20;
+  osc.frequency.setValueAtTime(freq, ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(freq * 0.5, ctx.currentTime + 0.2);
+  gain.gain.setValueAtTime(0.5, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.25);
+}
+
 // Theme ID → sound function mapping
 const soundMap = {
   zoo: animalChirp,
@@ -280,6 +366,7 @@ const soundMap = {
   korean: juicyPop,
   flowers: brightChime,
   music: brightChime,
+  drum: dinoStomp,
 };
 
 // Play theme-specific sound
