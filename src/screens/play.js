@@ -97,6 +97,18 @@ export function renderPlay(app, theme, onExit) {
     triggerEffect(e.clientX, e.clientY, null);
   });
 
+  // Hide cursor after 2s of no mouse movement
+  let cursorTimer = null;
+  function showCursor() {
+    document.body.classList.remove('cursor-hidden');
+    clearTimeout(cursorTimer);
+    cursorTimer = setTimeout(() => {
+      document.body.classList.add('cursor-hidden');
+    }, 2000);
+  }
+  playEl.addEventListener('mousemove', showCursor);
+  showCursor();
+
   // Ensure keyboard focus
   document.body.focus();
   playEl.setAttribute('tabindex', '-1');

@@ -16,6 +16,9 @@ html, body {
 
 body.playing {
   overflow: hidden;
+}
+
+body.playing.cursor-hidden {
   cursor: none;
 }
 
