@@ -1,0 +1,17 @@
+{
+  "name": "아기 키보드 놀이터",
+  "short_name": "아기키보드",
+  "description": "아무 키나 눌러도 재밌는 일이 일어나요!",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#FF6B9D",
+  "theme_color": "#FF6B9D",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
