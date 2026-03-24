@@ -164,6 +164,8 @@ body.playing {
   font-size: 10px;
   color: #aaa;
   margin-top: 4px;
+  text-align: center;
+  word-break: keep-all;
 }
 
 .ad-banner-top {
