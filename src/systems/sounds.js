@@ -276,6 +276,8 @@ const soundMap = {
   sports: sportsWhistle,
   numbers: numberBeep,
   robot: robotBleep,
+  english: brightChime,
+  korean: juicyPop,
 };
 
 // Play theme-specific sound
