@@ -287,4 +287,22 @@ export const themes = [
     particleColors: ['#FF6F00', '#E91E63', '#4CAF50', '#2196F3', '#9C27B0', '#FF5722'],
     particleShapes: ['circle', 'star', 'heart'],
   },
+  {
+    id: 'flowers',
+    name: '꽃',
+    icon: '🌸',
+    description: '예쁜 꽃동산!',
+    background: 'linear-gradient(180deg, #FCE4EC 0%, #F8BBD0 40%, #F48FB1 100%)',
+    letters: [
+      '🌸 벚꽃', '🌹 장미', '🌻 해바라기', '🌷 튤립', '🌺 히비스커스',
+      '🌼 데이지', '💐 꽃다발', '🌾 벼', '🍀 클로버', '🌿 풀잎',
+      '🌵 선인장', '🌴 야자수', '🍁 단풍', '🍂 낙엽', '🌲 소나무',
+      '🪻 라벤더', '🪷 연꽃', '🌈 무지개', '☘️ 세잎클로버', '🎋 대나무',
+      '🪴 화분', '🌱 새싹', '🍃 나뭇잎', '🏵️ 꽃장식', '💮 흰꽃',
+      '🌳 나무',
+    ],
+    digits: ['🌸 핑크꽃', '🌹 빨간장미', '🌻 노란꽃', '🌷 보라튤립', '🌺 주황꽃', '🌼 흰데이지', '💐 꽃바구니', '🍀 행운', '🌿 초록잎', '🌱 씨앗'],
+    particleColors: ['#E91E63', '#F48FB1', '#CE93D8', '#FFB74D', '#AED581', '#4DD0E1'],
+    particleShapes: ['circle', 'heart'],
+  },
 ];

@@ -278,6 +278,7 @@ const soundMap = {
   robot: robotBleep,
   english: brightChime,
   korean: juicyPop,
+  flowers: brightChime,
 };
 
 // Play theme-specific sound
