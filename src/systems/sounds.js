@@ -279,6 +279,7 @@ const soundMap = {
   english: brightChime,
   korean: juicyPop,
   flowers: brightChime,
+  music: brightChime,
 };
 
 // Play theme-specific sound

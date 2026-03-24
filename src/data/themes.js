@@ -305,4 +305,22 @@ export const themes = [
     particleColors: ['#E91E63', '#F48FB1', '#CE93D8', '#FFB74D', '#AED581', '#4DD0E1'],
     particleShapes: ['circle', 'heart'],
   },
+  {
+    id: 'music',
+    name: '음악',
+    icon: '🎵',
+    description: '도레미파솔!',
+    background: 'linear-gradient(180deg, #4A148C 0%, #6A1B9A 40%, #8E24AA 100%)',
+    letters: [
+      '🎵 음표', '🎶 멜로디', '🎹 피아노', '🎸 기타', '🥁 드럼',
+      '🎺 트럼펫', '🎻 바이올린', '🪗 아코디언', '🎷 색소폰', '🪘 봉고',
+      '🎤 마이크', '🎧 헤드폰', '📯 호른', '🪈 피리', '🔔 종',
+      '🎼 악보', '🎵 도', '🎵 레', '🎵 미', '🎵 파',
+      '🎵 솔', '🎵 라', '🎵 시', '🎶 높은도', '🎹 건반',
+      '🎸 일렉기타',
+    ],
+    digits: ['🎵 도', '🎵 레', '🎵 미', '🎵 파', '🎵 솔', '🎵 라', '🎵 시', '🎵 높은도', '🎶 짠짜잔', '🎼 피날레'],
+    particleColors: ['#CE93D8', '#BA68C8', '#FFD54F', '#4FC3F7', '#FF8A65', '#AED581'],
+    particleShapes: ['circle', 'star'],
+  },
 ];
