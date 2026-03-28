@@ -4,7 +4,7 @@ export function renderLanding(app, onSelect) {
       <div class="ad-banner ad-banner-top">
         <a href="https://link.coupang.com/a/eauItW" target="_blank" referrerpolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/975008?subId=&traceId=V0-301-5f4982b43e2b4522-I975008&w=320&h=100" alt="쿠팡 파트너스"></a>
       </div>
-      <h1 class="landing-title">🎹 아기 키보드 놀이터</h1>
+      <h1 class="landing-title">🎹 영유아 키보드 놀이터</h1>
       <p class="landing-subtitle">우리 아이 나이를 골라주세요!</p>
       <div class="age-grid">
         <button class="age-card" data-age="baby">
