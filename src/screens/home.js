@@ -1,15 +1,33 @@
 import { themes } from '../data/themes.js';
 
-export function renderHome(app, onStart, onStartGame) {
-  let selectedTheme = themes[0];
+// Age group configs
+const AGE_CONFIG = {
+  baby: {
+    title: '👶 아기 놀이터',
+    subtitle: '테마를 골라주세요!',
+    showThemes: true,
+    showGame: false,
+  },
+  toddler: {
+    title: '🧒 어린이 놀이터',
+    subtitle: '놀이터도, 게임도 있어요!',
+    showThemes: true,
+    showGame: true,
+  },
+  kid: {
+    title: '👦 글자 비 게임',
+    subtitle: '떨어지는 글자를 잡아요!',
+    showThemes: false,
+    showGame: true,
+  },
+};
 
-  app.innerHTML = `
-    <div class="home">
-      <div class="ad-banner ad-banner-top">
-        <a href="https://link.coupang.com/a/eauItW" target="_blank" referrerpolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/975008?subId=&traceId=V0-301-5f4982b43e2b4522-I975008&w=320&h=100" alt="쿠팡 파트너스"></a>
-      </div>
-      <h1 class="home-title">🎹 아기 키보드 놀이터</h1>
-      <p class="home-subtitle">테마를 골라주세요!</p>
+export function renderHome(app, ageGroup, onStart, onStartGame, onBack) {
+  let selectedTheme = themes[0];
+  const config = AGE_CONFIG[ageGroup];
+
+  const themesHtml = config.showThemes
+    ? `
       <div class="theme-grid">
         ${themes
           .map(
@@ -24,9 +42,13 @@ export function renderHome(app, onStart, onStartGame) {
           .join('')}
       </div>
       <button class="start-btn">시작하기! 🚀</button>
+    `
+    : '';
 
-      <div class="game-section">
-        <h2 class="game-title">🎮 글자 비 게임</h2>
+  const gameHtml = config.showGame
+    ? `
+      <div class="game-section ${config.showThemes ? '' : 'game-section-only'}">
+        ${config.showThemes ? '<h2 class="game-title">🎮 글자 비 게임</h2>' : ''}
         <p class="game-subtitle">하늘에서 떨어지는 글자를 잡아요!</p>
         <div class="game-grid">
           <button class="game-card" data-mode="korean">
@@ -41,37 +63,48 @@ export function renderHome(app, onStart, onStartGame) {
           </button>
         </div>
       </div>
+    `
+    : '';
 
+  app.innerHTML = `
+    <div class="home">
+      <button class="back-btn">← 돌아가기</button>
+      <h1 class="home-title">${config.title}</h1>
+      <p class="home-subtitle">${config.subtitle}</p>
+      ${themesHtml}
+      ${gameHtml}
       <p class="home-hint">종료: 오른쪽 위 ✕ 버튼</p>
-      <div class="ad-banner ad-banner-bottom">
-        <a href="https://link.coupang.com/a/eauFnA" target="_blank" referrerpolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/975005?subId=&traceId=V0-301-5f4982b43e2b4522-I975005&w=728&h=90" alt="쿠팡 파트너스"></a>
-      </div>
-      <p class="ad-disclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
     </div>
   `;
 
-  // Theme selection (click to select, double-click to start)
-  app.querySelectorAll('.theme-card').forEach((card) => {
-    card.addEventListener('click', () => {
-      app.querySelector('.theme-card.selected')?.classList.remove('selected');
-      card.classList.add('selected');
-      selectedTheme = themes[parseInt(card.dataset.index)];
+  // Back button
+  app.querySelector('.back-btn').addEventListener('click', onBack);
+
+  // Theme selection
+  if (config.showThemes) {
+    app.querySelectorAll('.theme-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        app.querySelector('.theme-card.selected')?.classList.remove('selected');
+        card.classList.add('selected');
+        selectedTheme = themes[parseInt(card.dataset.index)];
+      });
+      card.addEventListener('dblclick', () => {
+        selectedTheme = themes[parseInt(card.dataset.index)];
+        onStart(selectedTheme);
+      });
     });
-    card.addEventListener('dblclick', () => {
-      selectedTheme = themes[parseInt(card.dataset.index)];
+
+    app.querySelector('.start-btn').addEventListener('click', () => {
       onStart(selectedTheme);
     });
-  });
-
-  // Start button
-  app.querySelector('.start-btn').addEventListener('click', () => {
-    onStart(selectedTheme);
-  });
+  }
 
   // Game mode buttons
-  app.querySelectorAll('.game-card').forEach((card) => {
-    card.addEventListener('click', () => {
-      onStartGame(card.dataset.mode);
+  if (config.showGame) {
+    app.querySelectorAll('.game-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        onStartGame(card.dataset.mode);
+      });
     });
-  });
+  }
 }
