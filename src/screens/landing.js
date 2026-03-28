@@ -11,19 +11,19 @@ export function renderLanding(app, onSelect) {
           <span class="age-icon">👶</span>
           <span class="age-name">0~3세</span>
           <span class="age-desc">아무 키나 눌러봐요!</span>
-          <span class="age-tag">놀이터 + 피아노</span>
+          <span class="age-tag">놀이터 + 피아노 + 색깔</span>
         </button>
         <button class="age-card" data-age="toddler">
           <span class="age-icon">🧒</span>
           <span class="age-name">4~5세</span>
-          <span class="age-desc">피아노 + 풍선 + 글자비</span>
-          <span class="age-tag">놀이터 + 게임 3종</span>
+          <span class="age-desc">피아노 + 풍선 + 따라하기</span>
+          <span class="age-tag">놀이터 + 게임 5종</span>
         </button>
         <button class="age-card" data-age="kid">
           <span class="age-icon">👦</span>
           <span class="age-name">6~7세</span>
-          <span class="age-desc">글자비 + 순서 맞추기</span>
-          <span class="age-tag">학습 게임 2종</span>
+          <span class="age-desc">글자비 + 따라하기 + 빠진글자</span>
+          <span class="age-tag">학습 게임 4종</span>
         </button>
       </div>
       <div class="ad-banner ad-banner-bottom">

@@ -2,9 +2,12 @@ import { themes } from '../data/themes.js';
 
 const GAME_REGISTRY = {
   piano: { icon: '🎹', name: '키보드 피아노', desc: '건반을 눌러봐요!', modes: null },
+  'color-match': { icon: '🎨', name: '색깔 누르기', desc: '색깔을 맞춰요!', modes: null },
   'balloon-pop': { icon: '🎈', name: '풍선 터뜨리기', desc: '풍선을 터뜨려요!', modes: ['korean', 'english'] },
+  copycat: { icon: '🧠', name: '따라하기', desc: '순서를 기억해요!', modes: null },
   'letter-rain': { icon: '🌧️', name: '글자 비', desc: '글자를 잡아요!', modes: ['korean', 'english'] },
   'sequence-press': { icon: '🔢', name: '순서대로 누르기', desc: 'ㄱㄴㄷ 순서대로!', modes: ['korean', 'english', 'numbers'] },
+  'missing-letter': { icon: '🔀', name: '빠진 글자', desc: '빈칸을 채워요!', modes: ['korean', 'english'] },
 };
 
 const MODE_LABELS = {
@@ -18,19 +21,19 @@ const AGE_CONFIG = {
     title: '👶 아기 놀이터',
     subtitle: '테마를 골라주세요!',
     showThemes: true,
-    games: ['piano'],
+    games: ['piano', 'color-match'],
   },
   toddler: {
     title: '🧒 어린이 놀이터',
     subtitle: '놀이터도, 게임도 있어요!',
     showThemes: true,
-    games: ['piano', 'balloon-pop', 'letter-rain'],
+    games: ['piano', 'color-match', 'copycat', 'balloon-pop', 'letter-rain'],
   },
   kid: {
     title: '👦 학습 게임',
     subtitle: '재밌게 배워요!',
     showThemes: false,
-    games: ['letter-rain', 'sequence-press'],
+    games: ['letter-rain', 'copycat', 'sequence-press', 'missing-letter'],
   },
 };
 
