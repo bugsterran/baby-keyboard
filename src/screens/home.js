@@ -1,13 +1,13 @@
 import { themes } from '../data/themes.js';
 
 const GAME_REGISTRY = {
-  piano: { icon: '🎹', name: '키보드 피아노', desc: '건반을 눌러봐요!', modes: null },
-  'color-match': { icon: '🎨', name: '색깔 누르기', desc: '색깔을 맞춰요!', modes: null },
-  'balloon-pop': { icon: '🎈', name: '풍선 터뜨리기', desc: '풍선을 터뜨려요!', modes: ['korean', 'english'] },
-  copycat: { icon: '🧠', name: '따라하기', desc: '순서를 기억해요!', modes: null },
-  'letter-rain': { icon: '🌧️', name: '글자 비', desc: '글자를 잡아요!', modes: ['korean', 'english'] },
-  'sequence-press': { icon: '🔢', name: '순서대로 누르기', desc: 'ㄱㄴㄷ 순서대로!', modes: ['korean', 'english', 'numbers'] },
-  'missing-letter': { icon: '🔀', name: '빠진 글자', desc: '빈칸을 채워요!', modes: ['korean', 'english'] },
+  piano: { icon: '🎹', name: '키보드 피아노', desc: '건반을 눌러봐요!', modes: null, mobile: true },
+  'color-match': { icon: '🎨', name: '색깔 누르기', desc: '색깔을 맞춰요!', modes: null, mobile: true },
+  'balloon-pop': { icon: '🎈', name: '풍선 터뜨리기', desc: '풍선을 터뜨려요!', modes: ['korean', 'english'], mobile: true },
+  copycat: { icon: '🧠', name: '따라하기', desc: '순서를 기억해요!', modes: null, mobile: true },
+  'letter-rain': { icon: '🌧️', name: '글자 비', desc: '글자를 잡아요!', modes: ['korean', 'english'], mobile: true },
+  'sequence-press': { icon: '🔢', name: '순서대로 누르기', desc: 'ㄱㄴㄷ 순서대로!', modes: ['korean', 'english', 'numbers'], mobile: true },
+  'missing-letter': { icon: '🔀', name: '빠진 글자', desc: '빈칸을 채워요!', modes: ['korean', 'english'], mobile: false },
 };
 
 const MODE_LABELS = {
@@ -37,15 +37,19 @@ const AGE_CONFIG = {
   },
 };
 
+const mobileBadge = '<span class="mobile-badge">📱 모바일 가능</span>';
+
 function renderGameCards(games) {
   return games.map((gameId) => {
     const g = GAME_REGISTRY[gameId];
+    const badge = g.mobile ? mobileBadge : '';
     if (!g.modes) {
       return `
         <button class="game-card game-card-direct" data-game="${gameId}">
           <span class="game-card-icon">${g.icon}</span>
           <span class="game-card-name">${g.name}</span>
           <span class="game-card-desc">${g.desc}</span>
+          ${badge}
         </button>
       `;
     }
@@ -55,6 +59,7 @@ function renderGameCards(games) {
           <span class="game-card-icon">${g.icon}</span>
           <span class="game-card-name">${g.name}</span>
           <span class="game-card-desc">${g.desc}</span>
+          ${badge}
         </div>
         <div class="game-mode-btns">
           ${g.modes.map((m) => {
