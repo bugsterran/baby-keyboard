@@ -1,6 +1,6 @@
 import { themes } from '../data/themes.js';
 
-export function renderHome(app, onStart) {
+export function renderHome(app, onStart, onStartGame) {
   let selectedTheme = themes[0];
 
   app.innerHTML = `
@@ -24,6 +24,24 @@ export function renderHome(app, onStart) {
           .join('')}
       </div>
       <button class="start-btn">시작하기! 🚀</button>
+
+      <div class="game-section">
+        <h2 class="game-title">🎮 글자 비 게임</h2>
+        <p class="game-subtitle">하늘에서 떨어지는 글자를 잡아요!</p>
+        <div class="game-grid">
+          <button class="game-card" data-mode="korean">
+            <span class="game-card-icon">ㄱ</span>
+            <span class="game-card-name">한글</span>
+            <span class="game-card-desc">ㄱ~ㅎ 자음 연습</span>
+          </button>
+          <button class="game-card" data-mode="english">
+            <span class="game-card-icon">🔤</span>
+            <span class="game-card-name">영어</span>
+            <span class="game-card-desc">A~Z 알파벳 연습</span>
+          </button>
+        </div>
+      </div>
+
       <p class="home-hint">종료: 오른쪽 위 ✕ 버튼</p>
       <div class="ad-banner ad-banner-bottom">
         <a href="https://link.coupang.com/a/eauFnA" target="_blank" referrerpolicy="unsafe-url"><img src="https://ads-partners.coupang.com/banners/975005?subId=&traceId=V0-301-5f4982b43e2b4522-I975005&w=728&h=90" alt="쿠팡 파트너스"></a>
@@ -48,5 +66,12 @@ export function renderHome(app, onStart) {
   // Start button
   app.querySelector('.start-btn').addEventListener('click', () => {
     onStart(selectedTheme);
+  });
+
+  // Game mode buttons
+  app.querySelectorAll('.game-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      onStartGame(card.dataset.mode);
+    });
   });
 }
