@@ -447,14 +447,16 @@ body.playing.cursor-hidden {
   margin-bottom: 12px;
 }
 
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.game-list {
+  display: flex;
+  flex-direction: column;
   gap: 12px;
-  padding: 0 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.game-card {
+.game-card-direct {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -469,18 +471,33 @@ body.playing.cursor-hidden {
   outline: none;
 }
 
-.game-card:hover {
-  transform: scale(1.05);
+.game-card-direct:hover {
+  transform: scale(1.02);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-color: #4ECDC4;
 }
 
+.game-card-group {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+}
+
+.game-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 10px;
+}
+
 .game-card-icon {
-  font-size: clamp(32px, 5vw, 48px);
+  font-size: clamp(28px, 4vw, 40px);
 }
 
 .game-card-name {
-  font-size: clamp(16px, 2.5vw, 20px);
+  font-size: clamp(14px, 2vw, 18px);
   font-weight: bold;
   color: #333;
 }
@@ -490,26 +507,47 @@ body.playing.cursor-hidden {
   color: #888;
 }
 
+.game-mode-btns {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.game-mode-btn {
+  padding: 8px 16px;
+  font-size: clamp(12px, 1.8vw, 15px);
+  font-family: inherit;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #4ECDC4, #44A3AA);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.game-mode-btn:hover {
+  transform: scale(1.05);
+}
+
 .game-section-only {
   border-top: none;
   margin-top: 0;
   padding-top: 0;
 }
 
-.game-section-only .game-grid {
-  max-width: 400px;
-}
-
-.game-section-only .game-card {
-  padding: 32px 16px;
-}
-
 .game-section-only .game-card-icon {
-  font-size: clamp(48px, 8vw, 64px);
+  font-size: clamp(36px, 6vw, 52px);
 }
 
 .game-section-only .game-card-name {
-  font-size: clamp(20px, 3vw, 28px);
+  font-size: clamp(18px, 2.5vw, 24px);
+}
+
+.game-section-only .game-mode-btn {
+  padding: 12px 24px;
+  font-size: clamp(14px, 2vw, 18px);
 }
 
 /* === Letter Rain Screen === */
@@ -651,4 +689,128 @@ body.playing.cursor-hidden {
 .rain-retry-btn:hover,
 .rain-home-btn:hover {
   transform: scale(1.05);
+}
+
+/* === Piano Screen === */
+.piano-screen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1a1a2e 0%, #2d1b69 50%, #4a1a8a 100%);
+}
+
+/* === Balloon Pop Screen === */
+.balloon-screen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #E0F7FA 100%);
+}
+
+/* === Sequence Press Screen === */
+.sequence-screen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FFF8E1 0%, #FFECB3 50%, #FFE082 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.seq-progress {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 90%;
+  z-index: 5;
+}
+
+.seq-dot {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  font-weight: bold;
+  color: #999;
+  transition: all 0.3s;
+}
+
+.seq-dot-done {
+  background: #4ECDC4;
+  color: white;
+}
+
+.seq-dot-current {
+  background: #FF6B9D;
+  color: white;
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(255, 107, 157, 0.5);
+}
+
+.seq-current {
+  font-size: clamp(80px, 15vw, 150px);
+  font-weight: bold;
+  color: #333;
+  z-index: 5;
+  transition: transform 0.2s;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.seq-shake {
+  animation: seqShake 0.3s ease-in-out;
+}
+
+@keyframes seqShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.seq-picture {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 5;
+}
+
+.seq-pic-row {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.seq-pic-cell {
+  width: clamp(28px, 4vw, 40px);
+  height: clamp(28px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(18px, 3vw, 28px);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  transition: opacity 0.3s;
 }

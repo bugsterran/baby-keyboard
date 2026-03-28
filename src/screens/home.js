@@ -1,26 +1,68 @@
 import { themes } from '../data/themes.js';
 
-// Age group configs
+const GAME_REGISTRY = {
+  piano: { icon: '🎹', name: '키보드 피아노', desc: '건반을 눌러봐요!', modes: null },
+  'balloon-pop': { icon: '🎈', name: '풍선 터뜨리기', desc: '풍선을 터뜨려요!', modes: ['korean', 'english'] },
+  'letter-rain': { icon: '🌧️', name: '글자 비', desc: '글자를 잡아요!', modes: ['korean', 'english'] },
+  'sequence-press': { icon: '🔢', name: '순서대로 누르기', desc: 'ㄱㄴㄷ 순서대로!', modes: ['korean', 'english', 'numbers'] },
+};
+
+const MODE_LABELS = {
+  korean: { icon: 'ㄱ', name: '한글' },
+  english: { icon: '🔤', name: '영어' },
+  numbers: { icon: '🔢', name: '숫자' },
+};
+
 const AGE_CONFIG = {
   baby: {
     title: '👶 아기 놀이터',
     subtitle: '테마를 골라주세요!',
     showThemes: true,
-    showGame: false,
+    games: ['piano'],
   },
   toddler: {
     title: '🧒 어린이 놀이터',
     subtitle: '놀이터도, 게임도 있어요!',
     showThemes: true,
-    showGame: true,
+    games: ['piano', 'balloon-pop', 'letter-rain'],
   },
   kid: {
-    title: '👦 글자 비 게임',
-    subtitle: '떨어지는 글자를 잡아요!',
+    title: '👦 학습 게임',
+    subtitle: '재밌게 배워요!',
     showThemes: false,
-    showGame: true,
+    games: ['letter-rain', 'sequence-press'],
   },
 };
+
+function renderGameCards(games) {
+  return games.map((gameId) => {
+    const g = GAME_REGISTRY[gameId];
+    if (!g.modes) {
+      return `
+        <button class="game-card game-card-direct" data-game="${gameId}">
+          <span class="game-card-icon">${g.icon}</span>
+          <span class="game-card-name">${g.name}</span>
+          <span class="game-card-desc">${g.desc}</span>
+        </button>
+      `;
+    }
+    return `
+      <div class="game-card-group">
+        <div class="game-card-header">
+          <span class="game-card-icon">${g.icon}</span>
+          <span class="game-card-name">${g.name}</span>
+          <span class="game-card-desc">${g.desc}</span>
+        </div>
+        <div class="game-mode-btns">
+          ${g.modes.map((m) => {
+            const ml = MODE_LABELS[m];
+            return `<button class="game-mode-btn" data-game="${gameId}" data-mode="${m}">${ml.icon} ${ml.name}</button>`;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
 
 export function renderHome(app, ageGroup, onStart, onStartGame, onBack) {
   let selectedTheme = themes[0];
@@ -45,22 +87,12 @@ export function renderHome(app, ageGroup, onStart, onStartGame, onBack) {
     `
     : '';
 
-  const gameHtml = config.showGame
+  const gamesHtml = config.games.length
     ? `
       <div class="game-section ${config.showThemes ? '' : 'game-section-only'}">
-        ${config.showThemes ? '<h2 class="game-title">🎮 글자 비 게임</h2>' : ''}
-        <p class="game-subtitle">하늘에서 떨어지는 글자를 잡아요!</p>
-        <div class="game-grid">
-          <button class="game-card" data-mode="korean">
-            <span class="game-card-icon">ㄱ</span>
-            <span class="game-card-name">한글</span>
-            <span class="game-card-desc">ㄱ~ㅎ 자음 연습</span>
-          </button>
-          <button class="game-card" data-mode="english">
-            <span class="game-card-icon">🔤</span>
-            <span class="game-card-name">영어</span>
-            <span class="game-card-desc">A~Z 알파벳 연습</span>
-          </button>
+        ${config.showThemes ? '<h2 class="game-title">🎮 게임</h2>' : ''}
+        <div class="game-list">
+          ${renderGameCards(config.games)}
         </div>
       </div>
     `
@@ -72,15 +104,13 @@ export function renderHome(app, ageGroup, onStart, onStartGame, onBack) {
       <h1 class="home-title">${config.title}</h1>
       <p class="home-subtitle">${config.subtitle}</p>
       ${themesHtml}
-      ${gameHtml}
+      ${gamesHtml}
       <p class="home-hint">종료: 오른쪽 위 ✕ 버튼</p>
     </div>
   `;
 
-  // Back button
   app.querySelector('.back-btn').addEventListener('click', onBack);
 
-  // Theme selection
   if (config.showThemes) {
     app.querySelectorAll('.theme-card').forEach((card) => {
       card.addEventListener('click', () => {
@@ -99,12 +129,17 @@ export function renderHome(app, ageGroup, onStart, onStartGame, onBack) {
     });
   }
 
-  // Game mode buttons
-  if (config.showGame) {
-    app.querySelectorAll('.game-card').forEach((card) => {
-      card.addEventListener('click', () => {
-        onStartGame(card.dataset.mode);
-      });
+  // Direct game buttons (no mode selection)
+  app.querySelectorAll('.game-card-direct').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      onStartGame(btn.dataset.game, null);
     });
-  }
+  });
+
+  // Mode selection buttons
+  app.querySelectorAll('.game-mode-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      onStartGame(btn.dataset.game, btn.dataset.mode);
+    });
+  });
 }
