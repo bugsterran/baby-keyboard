@@ -9,6 +9,10 @@ import { renderSequencePress } from './screens/sequence-press.js';
 import { renderCopyCat } from './screens/copycat.js';
 import { renderColorMatch } from './screens/color-match.js';
 import { renderMissingLetter } from './screens/missing-letter.js';
+import { renderMultiply } from './screens/multiply.js';
+import { renderMemoryPairs } from './screens/memory-pairs.js';
+import { renderRhythm } from './screens/rhythm.js';
+import { renderWordTyping } from './screens/word-typing.js';
 
 const app = document.querySelector('#app');
 
@@ -40,6 +44,10 @@ function showGame(ageGroup, gameId, mode) {
     case 'copycat': renderCopyCat(app, exit); break;
     case 'color-match': renderColorMatch(app, exit); break;
     case 'missing-letter': renderMissingLetter(app, mode, exit); break;
+    case 'multiply': renderMultiply(app, exit); break;
+    case 'memory-pairs': renderMemoryPairs(app, exit); break;
+    case 'rhythm': renderRhythm(app, exit); break;
+    case 'word-typing': renderWordTyping(app, mode, exit); break;
   }
 }
 

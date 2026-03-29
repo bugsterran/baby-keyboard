@@ -3,11 +3,15 @@ import { themes } from '../data/themes.js';
 const GAME_REGISTRY = {
   piano: { icon: '🎹', name: '키보드 피아노', desc: '건반을 눌러봐요!', modes: null, mobile: true },
   'color-match': { icon: '🎨', name: '색깔 누르기', desc: '색깔을 맞춰요!', modes: null, mobile: true },
+  'memory-pairs': { icon: '🃏', name: '짝 맞추기', desc: '같은 그림을 찾아요!', modes: null, mobile: true },
   'balloon-pop': { icon: '🎈', name: '풍선 터뜨리기', desc: '풍선을 터뜨려요!', modes: ['korean', 'english'], mobile: true },
   copycat: { icon: '🧠', name: '따라하기', desc: '순서를 기억해요!', modes: null, mobile: true },
+  rhythm: { icon: '🎵', name: '리듬 게임', desc: '박자에 맞춰 눌러요!', modes: null, mobile: true },
   'letter-rain': { icon: '🌧️', name: '글자 비', desc: '글자를 잡아요!', modes: ['korean', 'english'], mobile: true },
   'sequence-press': { icon: '🔢', name: '순서대로 누르기', desc: 'ㄱㄴㄷ 순서대로!', modes: ['korean', 'english', 'numbers'], mobile: true },
   'missing-letter': { icon: '🔀', name: '빠진 글자', desc: '빈칸을 채워요!', modes: ['korean', 'english'], mobile: false },
+  multiply: { icon: '🔣', name: '구구단', desc: '곱셈을 풀어요!', modes: null, mobile: false },
+  'word-typing': { icon: '⌨️', name: '단어 타자', desc: '단어를 타이핑!', modes: ['korean', 'english'], mobile: false },
 };
 
 const MODE_LABELS = {
@@ -21,19 +25,19 @@ const AGE_CONFIG = {
     title: '👶 아기 놀이터',
     subtitle: '테마를 골라주세요!',
     showThemes: true,
-    games: ['piano', 'color-match'],
+    games: ['piano', 'color-match', 'memory-pairs'],
   },
   toddler: {
     title: '🧒 어린이 놀이터',
     subtitle: '놀이터도, 게임도 있어요!',
     showThemes: true,
-    games: ['piano', 'color-match', 'copycat', 'balloon-pop', 'letter-rain'],
+    games: ['piano', 'color-match', 'memory-pairs', 'copycat', 'rhythm', 'balloon-pop', 'letter-rain'],
   },
   kid: {
     title: '👦 학습 게임',
     subtitle: '재밌게 배워요!',
     showThemes: false,
-    games: ['letter-rain', 'copycat', 'sequence-press', 'missing-letter'],
+    games: ['letter-rain', 'copycat', 'rhythm', 'sequence-press', 'missing-letter', 'multiply', 'word-typing'],
   },
 };
 
